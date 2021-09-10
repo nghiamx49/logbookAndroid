@@ -6,10 +6,10 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <EditText
+    <Spinner
         android:id="@+id/PropertyType"
-        android:layout_width="287dp"
-        android:layout_height="44dp"
+        android:layout_width="288dp"
+        android:layout_height="47dp"
         android:layout_marginTop="44dp"
         android:ems="10"
         android:inputType="textPersonName"
@@ -18,10 +18,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
+    <Spinner
         android:id="@+id/BedRoom"
-        android:layout_width="287dp"
-        android:layout_height="46dp"
+        android:layout_width="285dp"
+        android:layout_height="44dp"
         android:layout_marginTop="48dp"
         android:ems="10"
         android:inputType="textPersonName"
@@ -33,23 +33,24 @@
         android:id="@+id/AddingDate"
         android:layout_width="133dp"
         android:layout_height="31dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="36dp"
         android:ems="10"
         android:inputType="date"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.203"
+        app:layout_constraintHorizontal_bias="0.237"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/BedRoom" />
 
     <EditText
         android:id="@+id/MonthlyRentPrice"
-        android:layout_width="278dp"
-        android:layout_height="43dp"
-        android:layout_marginTop="48dp"
+        android:layout_width="273dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="40dp"
+        android:digits="0123456789."
         android:ems="10"
         android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.458"
+        app:layout_constraintHorizontal_bias="0.45"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/AddingDate" />
 
@@ -97,18 +98,17 @@
         app:layout_constraintHorizontal_bias="0.21"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <EditText
+    <Spinner
         android:id="@+id/FurnitureType"
-        android:layout_width="277dp"
-        android:layout_height="42dp"
-        android:layout_marginTop="44dp"
+        android:layout_width="272dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="40dp"
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.455"
+        app:layout_constraintHorizontal_bias="0.474"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/MonthlyRentPrice"
-         />
+        app:layout_constraintTop_toBottomOf="@+id/MonthlyRentPrice" />
 
     <TextView
         android:id="@+id/textView10"
@@ -123,13 +123,14 @@
 
     <EditText
         android:id="@+id/Notes"
-        android:layout_width="279dp"
-        android:layout_height="54dp"
-        android:layout_marginTop="40dp"
+        android:layout_width="271dp"
+        android:layout_height="72dp"
+        android:layout_marginTop="36dp"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="textMultiLine"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.455"
+        app:layout_constraintHorizontal_bias="0.457"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/FurnitureType" />
 
@@ -146,13 +147,13 @@
 
     <EditText
         android:id="@+id/ReporterName"
-        android:layout_width="275dp"
-        android:layout_height="35dp"
-        android:layout_marginTop="52dp"
+        android:layout_width="278dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="36dp"
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.44"
+        app:layout_constraintHorizontal_bias="0.455"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Notes" />
 
@@ -160,35 +161,34 @@
         android:id="@+id/textView12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="12dp"
         android:text="Reporter Name:"
         app:layout_constraintBottom_toTopOf="@+id/ReporterName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.18"
+        app:layout_constraintHorizontal_bias="0.179"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/submit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="110dp"
+        android:layout_height="49dp"
         android:layout_marginBottom="44dp"
         android:onClick="nextScreen"
         android:text="Submit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.461"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ReporterName"
-        app:layout_constraintVertical_bias="0.797" />
+        app:layout_constraintVertical_bias="0.58" />
 
     <Button
         android:id="@+id/selectDate"
         android:layout_width="103dp"
         android:layout_height="41dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="36dp"
         android:text="Choose Date"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.365"
+        app:layout_constraintHorizontal_bias="0.369"
         app:layout_constraintStart_toEndOf="@+id/AddingDate"
         app:layout_constraintTop_toBottomOf="@+id/BedRoom" />
 

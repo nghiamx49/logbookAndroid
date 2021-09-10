@@ -8,21 +8,26 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
+
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
-    EditText propertyType, bedRoom, monthlyRentPrice, furnitureType, notes, reporterName;
+    EditText monthlyRentPrice, notes, reporterName;
     Button submit;
     TextView addingDate;
+    Spinner furnitureType, propertyType, bedRoom;
     boolean validation = false;
     FormData formData ;
     final Calendar myCalendar = Calendar.getInstance();
@@ -40,79 +45,67 @@ public class MainActivity extends AppCompatActivity {
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
         formData.setAddingDate(sdf.format(new Date()));
         propertyType = findViewById(R.id.PropertyType);
-        propertyType.setText(formData.getPropertyType());
-        propertyType.addTextChangedListener(new TextWatcher() {
-
+        final ArrayList<String> propertyList = new ArrayList<>();
+        propertyList.add("Choose One");
+        propertyList.add("Flat House");
+        propertyList.add("Apartment");
+        propertyList.add("Farm");
+        propertyList.add("Building");
+        ArrayAdapter<String> propertyAdapter = new ArrayAdapter<>(MainActivity.this, R.layout.support_simple_spinner_dropdown_item,propertyList);
+        propertyAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        propertyType.setAdapter(propertyAdapter);
+        propertyType.setSelection(formData.getPropertyType().equals("") ? 0 : propertyList.indexOf(formData.getPropertyType()));
+        propertyType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String valueSelected = propertyList.get(i);
+                formData.setPropertyType(valueSelected);
             }
-
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if(charSequence.length() == 0) {
-                    propertyType.setError("Please fill this field before Submit");
-                }
-                else {
-                    formData.setPropertyType(propertyType.getText().toString());
-                }
-            }
+            public void onNothingSelected(AdapterView<?> adapterView) {
 
-            @Override
-            public void afterTextChanged(Editable editable) {
             }
         });
          bedRoom =  findViewById(R.id.BedRoom);
-         bedRoom.setText(formData.getBedRoom());
-        bedRoom.addTextChangedListener(new TextWatcher() {
-
+        final ArrayList<String> bedRoomList = new ArrayList<>();
+        bedRoomList.add("Choose One");
+        bedRoomList.add("Single Room");
+        bedRoomList.add("Double Room");
+        bedRoomList.add("Studio Room");
+        ArrayAdapter<String> bedRoomAdapter = new ArrayAdapter<>(MainActivity.this, R.layout.support_simple_spinner_dropdown_item,bedRoomList);
+        propertyAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        bedRoom.setAdapter(bedRoomAdapter);
+        bedRoom.setSelection(formData.getBedRoom().equals("") ? 0 : bedRoomList.indexOf(formData.getBedRoom()));
+        bedRoom.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String valueSelected = bedRoomList.get(i);
+                formData.setBedRoom(valueSelected);
             }
-
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if(charSequence.length() == 0) {
-                    bedRoom.setError("Please fill this field before Submit");
-                }
-                else {
-                    formData.setBedRoom(bedRoom.getText().toString());
-                }
-            }
+            public void onNothingSelected(AdapterView<?> adapterView) {
 
-            @Override
-            public void afterTextChanged(Editable editable) {
             }
         });
         addingDate = findViewById(R.id.AddingDate);
         addingDate.setText(formData.getAddingDate());
         Button selectDate = findViewById(R.id.selectDate);
-        DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
-
-            @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear,
-                                  int dayOfMonth) {
-                myCalendar.set(Calendar.YEAR, year);
-                myCalendar.set(Calendar.MONTH, monthOfYear);
-                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                updateLabel();
-            }
-
+        DatePickerDialog.OnDateSetListener date = (view, year, monthOfYear, dayOfMonth) -> {
+            myCalendar.set(Calendar.YEAR, year);
+            myCalendar.set(Calendar.MONTH, monthOfYear);
+            myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            updateLabel();
         };
-         selectDate.setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View view) {
-                 DatePickerDialog dialog = new DatePickerDialog(MainActivity.this, date, myCalendar
-                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                         myCalendar.get(Calendar.DAY_OF_MONTH));
-                 dialog.getDatePicker().setMaxDate(new Date().getTime());
-                 dialog.show();
-             }
+         selectDate.setOnClickListener(view -> {
+             DatePickerDialog dialog = new DatePickerDialog(MainActivity.this, date, myCalendar
+                     .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                     myCalendar.get(Calendar.DAY_OF_MONTH));
+             dialog.getDatePicker().setMaxDate(new Date().getTime());
+             dialog.show();
          });
 
          monthlyRentPrice = findViewById(R.id.MonthlyRentPrice);
-         monthlyRentPrice.setText(formData.getMonthlyRentPrice());
+         monthlyRentPrice.setText(String.valueOf(formData.getMonthlyRentPrice()));
         monthlyRentPrice.addTextChangedListener(new TextWatcher() {
 
             @Override
@@ -125,7 +118,10 @@ public class MainActivity extends AppCompatActivity {
                 if(charSequence.length() == 0) {
                     monthlyRentPrice.setError("Please fill this field before Submit");
                 }
-                else if (Integer.parseInt(charSequence.toString()) < 0) {
+                else if (charSequence.toString().contains(".") && charSequence.toString().substring(charSequence.toString().indexOf(".")).length() > 3) {
+                    monthlyRentPrice.setError("Only accept 2 digits after period.");
+                }
+                else if (Double.parseDouble(charSequence.toString()) < 0) {
                     monthlyRentPrice.setError("Monthly rent price must be larger or equal 0");
                 }
                 else {
@@ -138,23 +134,32 @@ public class MainActivity extends AppCompatActivity {
             }
         });
          furnitureType =  findViewById(R.id.FurnitureType);
-         furnitureType.setText(formData.getFurnitureType());
-        furnitureType.addTextChangedListener(new TextWatcher() {
+         final ArrayList<String> strVal = new ArrayList<>();
+         strVal.add("Choose One(Optional)");
+         strVal.add("Furnished");
+         strVal.add("Unfurnished");
+         strVal.add("Part Furnished");
+         ArrayAdapter<String> adapter = new ArrayAdapter<>(MainActivity.this, R.layout.support_simple_spinner_dropdown_item,strVal);
+         adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+         furnitureType.setAdapter(adapter);
+         furnitureType.setSelection(formData.getPropertyType().equals("") ? 0 : strVal.indexOf(formData.getFurnitureType()));
+         furnitureType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+             @Override
+             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                 String valueSelected = strVal.get(i);
+                 if(valueSelected.equals("Choose One(Optional)")) {
+                     formData.setFurnitureType("");
+                 }
+                 else {
+                     formData.setFurnitureType(valueSelected);
+                 }
+             }
 
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+             @Override
+             public void onNothingSelected(AdapterView<?> adapterView) {
 
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                formData.setFurnitureType(furnitureType.getText().toString());
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-            }
-        });
+             }
+         });
          notes =  findViewById(R.id.Notes);
          notes.setText(formData.getNotes());
         notes.addTextChangedListener(new TextWatcher() {
@@ -223,19 +228,25 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean checkValidation() {
 
-        if(propertyType.length() <= 0) {
-            propertyType.setError("Please fill this field before Submit");
+        if(propertyType.getSelectedItem().toString().equals("Choose One")) {
+           TextView error = (TextView) propertyType.getSelectedView();
+           error.setError("Please select a valid property type before submit");
             return false;
         }
-        if(bedRoom.length() <= 0) {
-            bedRoom.setError("Please fill this field before Submit");
+        if(bedRoom.getSelectedItem().toString().equals("Choose One")) {
+            TextView error = (TextView) bedRoom.getSelectedView();
+            error.setError("Please select a valid property type before submit");
+            return false;
+        }
+        if(monthlyRentPrice.length() <= 0) {
+            monthlyRentPrice.setError("Please fill this field before Submit");
             return false;
         }
         if(reporterName.length() <= 0) {
             reporterName.setError("Please fill this field before Submit");
             return false;
         }
-        if(Integer.parseInt(monthlyRentPrice.getText().toString()) < 0) {
+        if(Double.parseDouble(monthlyRentPrice.getText().toString()) <= 0) {
             monthlyRentPrice.setError("Price must be larger or equal 0");
             return false;
         }
