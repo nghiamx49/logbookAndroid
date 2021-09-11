@@ -4,10 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -51,7 +53,27 @@ public class MainActivity extends AppCompatActivity {
         propertyList.add("Apartment");
         propertyList.add("Farm");
         propertyList.add("Building");
-        ArrayAdapter<String> propertyAdapter = new ArrayAdapter<>(MainActivity.this, R.layout.support_simple_spinner_dropdown_item,propertyList);
+        ArrayAdapter<String> propertyAdapter = new ArrayAdapter<String>(MainActivity.this, R.layout.support_simple_spinner_dropdown_item,propertyList) {
+            @Override
+            public boolean isEnabled(int position) {
+                if (position == 0) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView textview = (TextView) view;
+                if (position == 0) {
+                    textview.setTextColor(Color.GRAY);
+                } else {
+                    textview.setTextColor(Color.BLACK);
+                }
+                return view;
+            }
+        };
         propertyAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         propertyType.setAdapter(propertyAdapter);
         propertyType.setSelection(formData.getPropertyType().equals("") ? 0 : propertyList.indexOf(formData.getPropertyType()));
@@ -72,7 +94,27 @@ public class MainActivity extends AppCompatActivity {
         bedRoomList.add("Single Room");
         bedRoomList.add("Double Room");
         bedRoomList.add("Studio Room");
-        ArrayAdapter<String> bedRoomAdapter = new ArrayAdapter<>(MainActivity.this, R.layout.support_simple_spinner_dropdown_item,bedRoomList);
+        ArrayAdapter<String> bedRoomAdapter = new ArrayAdapter<String>(MainActivity.this, R.layout.support_simple_spinner_dropdown_item,bedRoomList) {
+            @Override
+            public boolean isEnabled(int position) {
+                if (position == 0) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView textview = (TextView) view;
+                if (position == 0) {
+                    textview.setTextColor(Color.GRAY);
+                } else {
+                    textview.setTextColor(Color.BLACK);
+                }
+                return view;
+            }
+        };
         propertyAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         bedRoom.setAdapter(bedRoomAdapter);
         bedRoom.setSelection(formData.getBedRoom().equals("") ? 0 : bedRoomList.indexOf(formData.getBedRoom()));
@@ -139,7 +181,27 @@ public class MainActivity extends AppCompatActivity {
          strVal.add("Furnished");
          strVal.add("Unfurnished");
          strVal.add("Part Furnished");
-         ArrayAdapter<String> adapter = new ArrayAdapter<>(MainActivity.this, R.layout.support_simple_spinner_dropdown_item,strVal);
+         ArrayAdapter<String> adapter = new ArrayAdapter<String>(MainActivity.this, R.layout.support_simple_spinner_dropdown_item,strVal) {
+             @Override
+             public boolean isEnabled(int position) {
+                 if (position == 0) {
+                     return false;
+                 } else {
+                     return true;
+                 }
+             }
+             @Override
+             public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                 View view = super.getDropDownView(position, convertView, parent);
+                 TextView textview = (TextView) view;
+                 if (position == 0) {
+                     textview.setTextColor(Color.GRAY);
+                 } else {
+                     textview.setTextColor(Color.BLACK);
+                 }
+                 return view;
+             }
+         };
          adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
          furnitureType.setAdapter(adapter);
          furnitureType.setSelection(formData.getPropertyType().equals("") ? 0 : strVal.indexOf(formData.getFurnitureType()));
