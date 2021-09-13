@@ -1,7 +1,5 @@
 package com.example.logbookform;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -17,6 +15,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -269,6 +268,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
          submit =  findViewById(R.id.submit);
+         Button viewData = findViewById(R.id.viewData);
+         viewData.setOnClickListener(view -> {
+             Intent goToList = new Intent(MainActivity.this, GetDataActivity.class);
+             startActivity(goToList);
+         });
     }
 
     private void updateLabel() {

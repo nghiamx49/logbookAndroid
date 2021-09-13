@@ -87,25 +87,6 @@ public class MainActivity2 extends AppCompatActivity {
             };
             RequestQueue queue = Volley.newRequestQueue(this);
             queue.add(jsonObjectRequest);
-
-//            if(createSuccessful) {
-//                new AlertDialog.Builder(context)
-//                        .setTitle("Save Data Success")
-//                        .setMessage("Press button to back to form")
-//                        .setPositiveButton("Fill new One", (dialog, which) -> {
-//                            Intent intent = new Intent(MainActivity2.this, MainActivity.class);
-//                            startActivity(intent);
-//                        }).show();
-//            } else {
-//                new AlertDialog.Builder(context)
-//                        .setTitle("Save Data Failed")
-//                        .setMessage("Press button to back to form and check again")
-//                        .setPositiveButton("Back To Check", (dialog, which) -> {
-////                            Intent intent = new Intent(MainActivity2.this, MainActivity.class);
-////                            intent.putExtra("data", formData);
-////                            startActivity(intent);
-//                            dialog.dismiss();
-//                        }).show();
 //            }
         });
         Button back = findViewById(R.id.back);

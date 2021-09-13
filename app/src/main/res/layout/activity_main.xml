@@ -180,14 +180,13 @@
             android:id="@+id/submit"
             android:layout_width="110dp"
             android:layout_height="49dp"
-            android:layout_marginBottom="44dp"
+            android:layout_marginTop="48dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
             android:onClick="nextScreen"
             android:text="Submit"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ReporterName"
-            app:layout_constraintVertical_bias="0.58" />
+            app:layout_constraintTop_toBottomOf="@+id/ReporterName" />
 
         <Button
             android:id="@+id/selectDate"
@@ -199,6 +198,19 @@
             app:layout_constraintHorizontal_bias="0.369"
             app:layout_constraintStart_toEndOf="@+id/AddingDate"
             app:layout_constraintTop_toBottomOf="@+id/BedRoom" />
+
+        <Button
+            android:id="@+id/viewData"
+            android:layout_width="150dp"
+            android:layout_height="56dp"
+            android:text="View All Data"
+            app:backgroundTint="#A4A5A5"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/submit"
+            app:layout_constraintHorizontal_bias="0.046"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ReporterName"
+            app:layout_constraintVertical_bias="1.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
